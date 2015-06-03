@@ -1,6 +1,6 @@
 __author__ = 'Andrea'
 
-class DHeapNode:
+class HeapNode:
 
     def __init__(self, e, k):
         self.elem = e
