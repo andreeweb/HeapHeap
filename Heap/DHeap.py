@@ -21,24 +21,25 @@ class DHeap:
             return True
         return False
 
-    def delete(self, node):
-        if len(self.heap) == 0:
-            return
-        node_to_delete = self.heap[node.index]
-        node_leaf = self.heap[- 1]
-        self.swap_node(node_to_delete, node_leaf)
-        del self.heap[-1]
-        self.move_up(node_leaf)
-        self.move_down(node_leaf)
+    # def delete(self, node):
+    #    if len(self.heap) == 0:
+    #        return None
+    #    node_to_delete = self.heap[node.index]
+    #    node_leaf = self.heap[- 1]
+    #    self.swap_node(node_to_delete, node_leaf)
+    #    del self.heap[-1]
+    #    self.move_up(node_leaf)
+    #    self.move_down(node_leaf)
 
     def delete_min(self):
         if len(self.heap) == 0:
-            return
+            return None
         node_to_delete = self.heap[0]
         node_leaf = self.heap[- 1]
         self.swap_node(node_to_delete, node_leaf)
         del self.heap[-1]
         self.move_down(node_leaf)
+        return node_to_delete
 
     def insert(self, elem, key):
         new_node = HeapNode(elem, key, len(self.heap))
