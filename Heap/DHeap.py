@@ -1,7 +1,8 @@
 __author__ = 'Andrea'
 
-from HeapNode import HeapNode
 import time
+
+from Heap.HeapNode import HeapNode
 
 class DHeap:
 
