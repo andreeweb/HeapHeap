@@ -1,8 +1,9 @@
 __author__ = 'Andrea'
 
-from Heap.HeapSort import HeapSort
-from Heap.DHeap import DHeap
 import time
+
+from Heap.HeapSort import HeapSort
+from Heap.DHeapQueue import DHeap
 
 if __name__ == "__main__":
 
@@ -82,4 +83,4 @@ if __name__ == "__main__":
     print("\n\n")
 
     print(HeapSort.heapsort_inplace(pq))
-    print(HeapSort.heapsort_support(pq))
+    # print(HeapSort.heapsort_support(pq))

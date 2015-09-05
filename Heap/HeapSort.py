@@ -1,5 +1,7 @@
 __author__ = 'Andrea'
 
+from Heap import DHeapHeapsort
+
 
 class HeapSort:
 
@@ -15,22 +17,17 @@ class HeapSort:
             if min_node is None:
                 break
             else:
-                ordered_array.append(min_node)
+                ordered_array.insert(0, min_node)
 
         return ordered_array
 
     @classmethod
     def heapsort_inplace(cls, heap):
 
-        length = len(heap.heap)
+        if not isinstance(type(heap), DHeapHeapsort):
+            raise AssertionError('heapsort_inplace only works on DHeapHeapsort queue')
 
-        while length > 0:
-
-            node_to_delete = heap.heap[0]
-            node_leaf = heap.heap[length - 1]
-            heap.swap_node(node_to_delete, node_leaf)
-            heap.move_down(node_leaf)
-
-            length -= 1
+        while not heap.is_empty():
+            heap.delete_min()
 
         return heap.heap
