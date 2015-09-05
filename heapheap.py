@@ -1,4 +1,3 @@
-__author__ = 'Andrea'
 
 import time
 

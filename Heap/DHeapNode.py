@@ -1,4 +1,4 @@
-__author__ = 'Andrea'
+
 
 class HeapNode:
 

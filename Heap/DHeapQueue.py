@@ -1,6 +1,6 @@
-__author__ = 'Andrea'
 
 from Heap.DHeapNode import HeapNode
+
 
 class DHeap:
 

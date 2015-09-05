@@ -1,6 +1,6 @@
-__author__ = 'Andrea'
 
 from Heap.BinomialHeap import BinomialHeap
+
 
 class BinomialHeapQueue:
 

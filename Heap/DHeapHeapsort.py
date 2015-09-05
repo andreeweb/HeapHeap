@@ -1,7 +1,7 @@
-__author__ = 'Andrea'
 
 from Heap.DHeapQueue import DHeap
 from Heap.DHeapNode import HeapNode
+
 
 class DHeapHeapsort(DHeap):
 
