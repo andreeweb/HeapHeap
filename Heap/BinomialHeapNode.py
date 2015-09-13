@@ -10,3 +10,9 @@ class BinomialHeapNode:
     def add_son(self, son):
         son.father = self
         self.children.append(son)
+
+    def swap_node(self, other_node):
+        self.elem, other_node.elem = other_node.elem, self.elem
+        self.key, other_node.key = other_node.key, self.key
+
+
