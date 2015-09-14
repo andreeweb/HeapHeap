@@ -1,6 +1,6 @@
 
 
-class HeapNode:
+class DHeapNode:
 
     def __init__(self, elem, key, index):
         self.elem = elem

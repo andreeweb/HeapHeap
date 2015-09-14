@@ -1,18 +1,18 @@
 
-from Heap.DHeapQueue import DHeap
-from Heap.DHeapNode import HeapNode
+from Heap.DHeapQueue import DHeapQueue
+from Heap.DHeapNode import DHeapNode
 
 
-class DHeapHeapsort(DHeap):
+class DHeapHeapsort(DHeapQueue):
 
-    def __init__(self, heap):
-        DHeap.__init__(self, heap.d)
+    def __init__(self, heap, d):
+        super().__init__(d)
         self.length = len(heap.heap)
 
     def get_min_son(self, node):
         # Son law: d*(index)+{1,...,d}
         count = 1
-        min_son = HeapNode(None, float('inf'), None)
+        min_son = DHeapNode(None, float('inf'), None)
         while count <= self.d:
             son_index = (self.d*node.index)+count
             if son_index >= self.length:
