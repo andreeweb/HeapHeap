@@ -194,11 +194,15 @@ def heapsort(rnd_numb, d, cls):
     else:
         pq = BinomialHeapQueue(d)
 
+    # insert input on heap structure
     for i in range(len(rnd_numb)):
         pq.insert(rnd_numb[i][0], rnd_numb[i][0])
 
+    # do heapsort!
+    result = HeapSort.heapsort_support(pq)
+
     log("End ordering in: " + str(time.time() - start_ordering_time) + "\n\n")
-    log("Input ordered \n" + str(HeapSort.heapsort_support(pq)) + "\n\n")
+    log("Input ordered \n" + str(result) + "\n\n")
 
 
 def divider():
