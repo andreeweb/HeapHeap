@@ -1,4 +1,3 @@
-from enum import Enum
 import random
 import time
 from Heap.BinaryHeapQueue import BinaryHeapQueue
@@ -6,12 +5,10 @@ from Heap.BinomialHeapQueue import BinomialHeapQueue
 from Utils.Generator import Generator
 from Heap.DHeapQueue import DHeapQueue
 from Heap.HeapSort import HeapSort
-import numpy as np
 import matplotlib.pyplot as plot
 
 # global log time
-global log_time
-
+log_time = 0
 
 def log(value):
     """
@@ -26,13 +23,16 @@ def log(value):
     else:
         f = open("./log_" + str(time.time()) + ".txt", "a")
 
-    f.write(value)
+    f.write(value[:75] + (value[75:] and '..'))
 
     if True:
         print(value)
 
 
 def option_insert_delete(rnd_numb):
+
+    axis_y = []
+    axis_x = []
 
     p = 0
     while True:
@@ -50,89 +50,103 @@ def option_insert_delete(rnd_numb):
 
         select_queue = input(
             "\n Please select the data structure with which you want to perform test.\n "
-            "1 - 2Heap \n"
-            " 2 - 3Heap \n"
-            " 3 - 4Heap \n"
-            " 4 - 6Heap \n"
-            " 5 - 8Heap \n"
-            " 6 - 10Heap \n"
-            " 7 - 16Heap \n"
-            " 8 - BinaryHeap \n"
-            " 9 - BinomialHeap \n"
-            " b - Back \n")
+            "1  - 2Heap \n"
+            " 2  - 3Heap \n"
+            " 3  - 4Heap \n"
+            " 4  - 6Heap \n"
+            " 5  - 8Heap \n"
+            " 6  - 10Heap \n"
+            " 7  - 16Heap \n"
+            " 8  - BinaryHeap \n"
+            " 9  - BinomialHeap \n"
+            " 10 - Perform test on all queue and show result plot\n"
+            " b  - Back \n")
         try:
             if str(select_queue) == 'b':
                 break
             elif int(select_queue) == 1:
-                insert_delete_heap(rnd_numb, p, 2, DHeapQueue)
+                insert_delete_heap(rnd_numb, p, 2, DHeapQueue, axis_x, axis_y)
             elif int(select_queue) == 2:
-                insert_delete_heap(rnd_numb, p, 3,  DHeapQueue)
+                insert_delete_heap(rnd_numb, p, 3,  DHeapQueue, axis_x, axis_y)
             elif int(select_queue) == 3:
-                insert_delete_heap(rnd_numb, p, 4,  DHeapQueue)
+                insert_delete_heap(rnd_numb, p, 4,  DHeapQueue, axis_x, axis_y)
             elif int(select_queue) == 4:
-                insert_delete_heap(rnd_numb, p, 6,  DHeapQueue)
+                insert_delete_heap(rnd_numb, p, 6,  DHeapQueue, axis_x, axis_y)
             elif int(select_queue) == 5:
-                insert_delete_heap(rnd_numb, p, 8,  DHeapQueue)
+                insert_delete_heap(rnd_numb, p, 8,  DHeapQueue, axis_x, axis_y)
             elif int(select_queue) == 6:
-                insert_delete_heap(rnd_numb, p, 10,  DHeapQueue)
+                insert_delete_heap(rnd_numb, p, 10,  DHeapQueue, axis_x, axis_y)
             elif int(select_queue) == 7:
-                insert_delete_heap(rnd_numb, p, 16,  DHeapQueue)
+                insert_delete_heap(rnd_numb, p, 16,  DHeapQueue, axis_x, axis_y)
             elif int(select_queue) == 8:
-                insert_delete_heap(rnd_numb, p, None,  BinaryHeapQueue)
+                insert_delete_heap(rnd_numb, p, None,  BinaryHeapQueue, axis_x, axis_y)
             elif int(select_queue) == 9:
-                insert_delete_heap(rnd_numb, p, 32,  BinomialHeapQueue)
+                insert_delete_heap(rnd_numb, p, 32,  BinomialHeapQueue, axis_x, axis_y)
+            elif int(select_queue) == 10:
+                insert_delete_heap(rnd_numb, p, 2, DHeapQueue, axis_x, axis_y)
+                insert_delete_heap(rnd_numb, p, 3,  DHeapQueue, axis_x, axis_y)
+                insert_delete_heap(rnd_numb, p, 4,  DHeapQueue, axis_x, axis_y)
+                insert_delete_heap(rnd_numb, p, 6,  DHeapQueue, axis_x, axis_y)
+                insert_delete_heap(rnd_numb, p, 8,  DHeapQueue, axis_x, axis_y)
+                insert_delete_heap(rnd_numb, p, 10,  DHeapQueue, axis_x, axis_y)
+                insert_delete_heap(rnd_numb, p, 16,  DHeapQueue, axis_x, axis_y)
+                insert_delete_heap(rnd_numb, p, None,  BinaryHeapQueue, axis_x, axis_y)
+                plot_it(axis_x, axis_y)
+                # insert_delete_heap(rnd_numb, p, 32,  BinomialHeapQueue, axis_x, axis_y)
             else:
                 print("Please select a valid option!")
-        except ValueError:
-            print("Please select a valid option!")
+        except Exception as e:
+            print("Please select a valid option!" + str(e))
             continue
 
 
-def insert_delete_heap(rnd_numb, p, d, cls):
+def insert_delete_heap(rnd_numb, p, d, cls, axis_x, axis_y):
 
-    log("**************************\n\n")
+    plot_value_x = []
+    plot_value_y = []
 
-    axis_x = []
-    axis_y = []
-
-    log("Start insert half input in " + str(d) + "Heap data structure" + "\n")
     start_ordering_time = time.time()
 
     # identify the queue
     if cls == DHeapQueue:
         pq = DHeapQueue(d)
+        log("Start insert half input in " + str(d) + "Heap data structure" + "\n")
     elif cls == BinaryHeapQueue:
         pq = BinaryHeapQueue()
+        log("Start insert half input in BinaryHeap data structure" + "\n")
     else:
         pq = BinomialHeapQueue(d)
+        log("Start insert half input in BinomialHeap data structure" + "\n")
 
     # how many insert before start with the insert/delete algorithm
     count = int(len(rnd_numb)/2)
 
     # perform some insert
+    action_time = time.time()
     for i in range(count):
         pq.insert(rnd_numb[i][0], rnd_numb[i][0])
+        if i % 1500 == 0:
+            plot_value_y.append(float((time.time() - action_time)) * 1000)
+            plot_value_x.append(i)
+            action_time = time.time()
 
     # start to insert with probability of 0 < p < 1, delete with probability of 1-p
-    for count in range(len(rnd_numb)):
+    action_time = time.time()
+    for i in range(count, len(rnd_numb)):
         k = random.uniform(0.0, 1.0)
         if float(k) < float(p):
             pq.insert(rnd_numb[count][0], rnd_numb[count][0])
         else:
             pq.delete_min()
+        if i % 1500 == 0:
+            plot_value_y.append(float((time.time() - action_time)) * 1000)
+            plot_value_x.append(i)
+            action_time = time.time()
+
+    axis_x.append(plot_value_x)
+    axis_y.append(plot_value_y)
 
     log("End insert/delete in: " + str(time.time() - start_ordering_time) + "\n\n")
-
-    while True:
-        pl = input("\n Do you want to Plot it? yes/no \n")
-        try:
-            if str(pl) == 'yes':
-                plot_it(axis_x, axis_y)
-            elif str(pl) == 'no':
-                break
-        except ValueError:
-            print("Please insert a valid probability!")
-            continue
 
 
 def option_order(rnd_numb):
@@ -141,16 +155,17 @@ def option_order(rnd_numb):
 
         select_queue = input(
             "\n Please select the data structure with which you want to perform test.\n "
-            "1 - 2Heap \n"
-            " 2 - 3Heap \n"
-            " 3 - 4Heap \n"
-            " 4 - 6Heap \n"
-            " 5 - 8Heap \n"
-            " 6 - 10Heap \n"
-            " 7 - 16Heap \n"
-            " 8 - BinaryHeap \n"
-            " 9 - BinomialHeap \n"
-            " b - Back \n")
+            "1  - 2Heap \n"
+            " 2  - 3Heap \n"
+            " 3  - 4Heap \n"
+            " 4  - 6Heap \n"
+            " 5  - 8Heap \n"
+            " 6  - 10Heap \n"
+            " 7  - 16Heap \n"
+            " 8  - BinaryHeap \n"
+            " 9  - BinomialHeap \n"
+            " 10 - Perform test on all queue and show result plot\n"
+            " b  - Back \n")
         try:
             if str(select_queue) == 'b':
                 break
@@ -172,6 +187,16 @@ def option_order(rnd_numb):
                 heapsort(rnd_numb, None, BinaryHeapQueue)
             elif int(select_queue) == 9:
                 heapsort(rnd_numb, 32, BinomialHeapQueue)
+            elif int(select_queue) == 10:
+                heapsort(rnd_numb, 2, DHeapQueue)
+                heapsort(rnd_numb, 3, DHeapQueue)
+                heapsort(rnd_numb, 4, DHeapQueue)
+                heapsort(rnd_numb, 6, DHeapQueue)
+                heapsort(rnd_numb, 8, DHeapQueue)
+                heapsort(rnd_numb, 10, DHeapQueue)
+                heapsort(rnd_numb, 16, DHeapQueue)
+                heapsort(rnd_numb, None, BinaryHeapQueue)
+                # heapsort(rnd_numb, 32, BinomialHeapQueue, axis_x, axis_y)
             else:
                 print("Please select a valid option!")
         except ValueError:
@@ -181,18 +206,20 @@ def option_order(rnd_numb):
 
 def heapsort(rnd_numb, d, cls):
 
-    log("**************************\n\n")
+    log("\n\n **************************\n")
 
-    log("Start ordering input with " + str(d) + "Heap data structure" + "\n")
     start_ordering_time = time.time()
 
     # identify the queue
     if cls == DHeapQueue:
         pq = DHeapQueue(d)
+        log("Start heapsort with " + str(d) + "Heap data structure" + "\n")
     elif cls == BinaryHeapQueue:
         pq = BinaryHeapQueue()
+        log("Start heapsort with BinaryHeap data structure" + "\n")
     else:
         pq = BinomialHeapQueue(d)
+        log("Start heapsort with BinomialHeap data structure" + "\n")
 
     # insert input on heap structure
     for i in range(len(rnd_numb)):
@@ -201,29 +228,33 @@ def heapsort(rnd_numb, d, cls):
     # do heapsort!
     result = HeapSort.heapsort_support(pq)
 
-    log("End ordering in: " + str(time.time() - start_ordering_time) + "\n\n")
+    timestamp = str(time.time() - start_ordering_time)
+
+    log("End ordering in: " + timestamp + "\n\n")
     log("Input ordered \n" + str(result) + "\n\n")
 
 
 def divider():
-    return "---------------------------------------- \n"
+    return "\n ---------------------------------------- \n"
 
 
 def plot_it(x_values, y_values):
 
-    # evenly sampled time at 200ms intervals
-    t = np.arange(0., 5., 0.2)
+    print(x_values)
+    print(y_values)
 
-    # red dashes, blue squares and green triangles
-    plot.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, 'g^')
+    for i in range(len(x_values)):
+        plot.plot(x_values[i], y_values[i])
+        plot.axis([0, x_values[i][-1], 0, max(y_values[i]) + 10])
+
     plot.show()
+
 
 if __name__ == "__main__":
 
     log_time = time.time()
 
     log(divider())
-    log("Start execution:" + str(int(log_time)) + "\n\n")
 
     input_size = 0
     seed = 0
@@ -273,5 +304,4 @@ if __name__ == "__main__":
 
     end = time.time()
 
-    log("End execution: " + str(end - log_time) + "\n\n")
     log(divider())
