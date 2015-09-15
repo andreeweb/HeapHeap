@@ -1,6 +1,4 @@
 
-from Heap import DHeapHeapsort
-
 
 class HeapSort:
 
@@ -19,14 +17,3 @@ class HeapSort:
                 ordered_array.insert(0, min_node)
 
         return ordered_array
-
-    @classmethod
-    def heapsort_inplace(cls, heap):
-
-        if not isinstance(type(heap), DHeapHeapsort):
-            raise AssertionError('heapsort_inplace only works on DHeapHeapsort queue')
-
-        while not heap.is_empty():
-            heap.delete_min()
-
-        return heap.heap
