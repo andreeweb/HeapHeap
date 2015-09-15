@@ -14,6 +14,6 @@ class HeapSort:
             if min_node is None:
                 break
             else:
-                ordered_array.insert(0, min_node)
+                ordered_array.append(min_node)
 
         return ordered_array
