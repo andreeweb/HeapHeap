@@ -64,19 +64,21 @@ class BinomialHeapQueue:
         if self.is_empty():
             return None
         index = self.find_min_index()
-        new = self.heap[index][0].get_heap_sons()
+        sons = self.heap[index][0].get_heap_sons()
+        node_to_delete = self.heap[index][0]
         self.heap[index][0] = None
         count = 0
-        length = len(new)
+        length = len(sons)
         while length > 0:
-            current = new[count]
-            if self.heap[count][0] is None:
-                self.heap[count][0] = current
+            current = sons[count]
+            if self.heap[index][0] is None:
+                self.heap[index][0] = current
             else:
-                self.heap[count][1] = current
+                self.heap[index][1] = current
+                self.rebuild()
             count += 1
             length -= 1
-        self.rebuild()
+        return node_to_delete.root.elem
 
     def print_heap(self):
         self.heap[0][0].print_heap()
