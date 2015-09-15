@@ -1,12 +1,13 @@
+from enum import Enum
 import random
 import time
 from Heap.BinaryHeapQueue import BinaryHeapQueue
 from Heap.BinomialHeapQueue import BinomialHeapQueue
-from Heap.DHeapNode import DHeapNode
 from Utils.Generator import Generator
 from Heap.DHeapQueue import DHeapQueue
 from Heap.HeapSort import HeapSort
-
+import numpy as np
+import matplotlib.pyplot as plot
 
 # global log time
 global log_time
@@ -58,28 +59,28 @@ def option_insert_delete(rnd_numb):
             " 7 - 16Heap \n"
             " 8 - BinaryHeap \n"
             " 9 - BinomialHeap \n"
-            " q - Quit \n")
+            " b - Back \n")
         try:
-            if str(select_queue) == 'q':
+            if str(select_queue) == 'b':
                 break
             elif int(select_queue) == 1:
-                option_insert_delete_heap(rnd_numb, p, 2)
+                insert_delete_heap(rnd_numb, p, 2, DHeapQueue)
             elif int(select_queue) == 2:
-                option_insert_delete_heap(rnd_numb, p, 3)
+                insert_delete_heap(rnd_numb, p, 3,  DHeapQueue)
             elif int(select_queue) == 3:
-                option_insert_delete_heap(rnd_numb, p, 4)
+                insert_delete_heap(rnd_numb, p, 4,  DHeapQueue)
             elif int(select_queue) == 4:
-                option_insert_delete_heap(rnd_numb, p, 6)
+                insert_delete_heap(rnd_numb, p, 6,  DHeapQueue)
             elif int(select_queue) == 5:
-                option_insert_delete_heap(rnd_numb, p, 8)
+                insert_delete_heap(rnd_numb, p, 8,  DHeapQueue)
             elif int(select_queue) == 6:
-                option_insert_delete_heap(rnd_numb, p, 10)
+                insert_delete_heap(rnd_numb, p, 10,  DHeapQueue)
             elif int(select_queue) == 7:
-                option_insert_delete_heap(rnd_numb, p, 16)
+                insert_delete_heap(rnd_numb, p, 16,  DHeapQueue)
             elif int(select_queue) == 8:
-                option_insert_delete_binary_heap(rnd_numb, p)
+                insert_delete_heap(rnd_numb, p, None,  BinaryHeapQueue)
             elif int(select_queue) == 9:
-                option_insert_delete_binomial_heap(rnd_numb, p)
+                insert_delete_heap(rnd_numb, p, 32,  BinomialHeapQueue)
             else:
                 print("Please select a valid option!")
         except ValueError:
@@ -87,23 +88,34 @@ def option_insert_delete(rnd_numb):
             continue
 
 
-def option_insert_delete_heap(rnd_numb, p, d):
+def insert_delete_heap(rnd_numb, p, d, cls):
 
     log("**************************\n\n")
+
+    axis_x = []
+    axis_y = []
 
     log("Start insert half input in " + str(d) + "Heap data structure" + "\n")
     start_ordering_time = time.time()
 
+    # identify the queue
+    if cls == DHeapQueue:
+        pq = DHeapQueue(d)
+    elif cls == BinaryHeapQueue:
+        pq = BinaryHeapQueue()
+    else:
+        pq = BinomialHeapQueue(d)
+
+    # how many insert before start with the insert/delete algorithm
     count = int(len(rnd_numb)/2)
 
-    pq = DHeapQueue(d)
+    # perform some insert
     for i in range(count):
         pq.insert(rnd_numb[i][0], rnd_numb[i][0])
 
+    # start to insert with probability of 0 < p < 1, delete with probability of 1-p
     for count in range(len(rnd_numb)):
-
         k = random.uniform(0.0, 1.0)
-
         if float(k) < float(p):
             pq.insert(rnd_numb[count][0], rnd_numb[count][0])
         else:
@@ -111,13 +123,16 @@ def option_insert_delete_heap(rnd_numb, p, d):
 
     log("End insert/delete in: " + str(time.time() - start_ordering_time) + "\n\n")
 
-
-def option_insert_delete_binary_heap(rnd_numb, p):
-    print(rnd_numb)
-
-
-def option_insert_delete_binomial_heap(rnd_numb, p):
-    print(rnd_numb)
+    while True:
+        pl = input("\n Do you want to Plot it? yes/no \n")
+        try:
+            if str(pl) == 'yes':
+                plot_it(axis_x, axis_y)
+            elif str(pl) == 'no':
+                break
+        except ValueError:
+            print("Please insert a valid probability!")
+            continue
 
 
 def option_order(rnd_numb):
@@ -135,28 +150,28 @@ def option_order(rnd_numb):
             " 7 - 16Heap \n"
             " 8 - BinaryHeap \n"
             " 9 - BinomialHeap \n"
-            " q - Quit \n")
+            " b - Back \n")
         try:
-            if str(select_queue) == 'q':
+            if str(select_queue) == 'b':
                 break
             elif int(select_queue) == 1:
-                heapsort_heap(rnd_numb, 2)
+                heapsort(rnd_numb, 2, DHeapQueue)
             elif int(select_queue) == 2:
-                heapsort_heap(rnd_numb, 3)
+                heapsort(rnd_numb, 3, DHeapQueue)
             elif int(select_queue) == 3:
-                heapsort_heap(rnd_numb, 4)
+                heapsort(rnd_numb, 4, DHeapQueue)
             elif int(select_queue) == 4:
-                heapsort_heap(rnd_numb, 6)
+                heapsort(rnd_numb, 6, DHeapQueue)
             elif int(select_queue) == 5:
-                heapsort_heap(rnd_numb, 8)
+                heapsort(rnd_numb, 8, DHeapQueue)
             elif int(select_queue) == 6:
-                heapsort_heap(rnd_numb, 10)
+                heapsort(rnd_numb, 10, DHeapQueue)
             elif int(select_queue) == 7:
-                heapsort_heap(rnd_numb, 16)
+                heapsort(rnd_numb, 16, DHeapQueue)
             elif int(select_queue) == 8:
-                heapsort_binary_heap(rnd_numb)
+                heapsort(rnd_numb, None, BinaryHeapQueue)
             elif int(select_queue) == 9:
-                heapsort_binomial_heap(rnd_numb)
+                heapsort(rnd_numb, 32, BinomialHeapQueue)
             else:
                 print("Please select a valid option!")
         except ValueError:
@@ -164,44 +179,21 @@ def option_order(rnd_numb):
             continue
 
 
-def heapsort_heap(rnd_numb, d):
+def heapsort(rnd_numb, d, cls):
 
     log("**************************\n\n")
 
     log("Start ordering input with " + str(d) + "Heap data structure" + "\n")
     start_ordering_time = time.time()
 
-    pq = DHeapQueue(d)
-    for i in range(len(rnd_numb)):
-        pq.insert(rnd_numb[i][0], rnd_numb[i][0])
+    # identify the queue
+    if cls == DHeapQueue:
+        pq = DHeapQueue(d)
+    elif cls == BinaryHeapQueue:
+        pq = BinaryHeapQueue()
+    else:
+        pq = BinomialHeapQueue(d)
 
-    log("End ordering in: " + str(time.time() - start_ordering_time) + "\n\n")
-    log("Input ordered \n" + str(HeapSort.heapsort_support(pq)) + "\n\n")
-
-
-def heapsort_binary_heap(rnd_numb):
-
-    log("**************************\n")
-
-    log("Start ordering input with BinaryHeapQueue data structure" + "\n")
-    start_ordering_time = time.time()
-
-    pq = BinaryHeapQueue()
-    for i in range(len(rnd_numb)):
-        pq.insert(rnd_numb[i][0], rnd_numb[i][0])
-
-    log("End ordering in: " + str(time.time() - start_ordering_time) + "\n\n")
-    log("Input ordered \n" + str(HeapSort.heapsort_support(pq)) + "\n\n")
-
-
-def heapsort_binomial_heap(rnd_numb):
-
-    log("**************************\n")
-
-    log("Start ordering input with BinomialHeapQueue data structure" + "\n")
-    start_ordering_time = time.time()
-
-    pq = BinomialHeapQueue(32)
     for i in range(len(rnd_numb)):
         pq.insert(rnd_numb[i][0], rnd_numb[i][0])
 
@@ -211,6 +203,16 @@ def heapsort_binomial_heap(rnd_numb):
 
 def divider():
     return "---------------------------------------- \n"
+
+
+def plot_it(x_values, y_values):
+
+    # evenly sampled time at 200ms intervals
+    t = np.arange(0., 5., 0.2)
+
+    # red dashes, blue squares and green triangles
+    plot.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, 'g^')
+    plot.show()
 
 if __name__ == "__main__":
 
