@@ -46,7 +46,7 @@ class BinomialHeapQueue:
 
     def find_min_index(self):
         if self.is_empty():
-            return -1
+            return None
         for best in range(self.max_size):
             if self.heap[best][0] is not None:
                 break
@@ -62,7 +62,7 @@ class BinomialHeapQueue:
 
     def delete_min(self):
         if self.is_empty():
-            return
+            return None
         index = self.find_min_index()
         new = self.heap[index][0].get_heap_sons()
         self.heap[index][0] = None
