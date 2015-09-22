@@ -6,7 +6,7 @@ class Generator:
     @classmethod
     def generate(cls, seed, input_size):
         """
-        Generate count random numbers with the seed specified
+        Generate input_size random numbers with the seed specified
 
         :param seed:
         :param count:
