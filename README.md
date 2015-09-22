@@ -7,7 +7,7 @@ Conduct an experimental investigation on the behavior of d-heap, for d = 2, 3, 4
 
 In particular are asked to compare the behavior of these data structures as a result of a random sequence of entries of integers and extractions of the minimum, studying the performance of algorithms to vary the total number of tasks (number of entries + number of extractions of the min).
 
-Also compare the behavior of structures data considered in sorting applications using HeapSort.
+Also compare the behavior of data structures considered in sorting applications using HeapSort.
 
 # Usage
 
@@ -18,6 +18,6 @@ python3 heapheap.py
 ```
 # Plot!
 
-At the end of each test (except for HeapSort) the program use lib [matplotlib](http://matplotlib.org) for plot the results, like this example:
+At the end of each test (except for HeapSort) the program use lib [matplotlib](http://matplotlib.org) to plot the results, like this example:
 
 ![plot example](/plot_example/figure_1.png)
