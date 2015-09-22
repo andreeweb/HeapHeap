@@ -20,4 +20,4 @@ python3 heapheap.py
 
 At the end of each test the program use lib [matplotlib](http://matplotlib.org) for plot the results, like this example:
 
-![plot_example](/figure_1.png)
+![plot example](/plot_example/figure_1.png)
