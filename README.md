@@ -1,5 +1,5 @@
 # HeapHeap
-Project for the Engineering course of the algorithms during the academic year 2014/2015.
+Project for the algorithm engineering course. Academic year 2014/2015
 
 # Description
 
