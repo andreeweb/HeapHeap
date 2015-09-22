@@ -10,6 +10,9 @@ In particular are asked to compare the behavior of these data structures as a re
 Also compare the behavior of structures data considered in sorting applications using HeapSort.
 
 # Usage
+
+Download repo or clone it and type in command line:
+
 ```
 python3 heapheap.py
 ```
